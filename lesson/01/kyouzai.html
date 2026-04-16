@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>kyouzai.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///c%3A/Users/saisi/dev/cvtest/github-markdown.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>以下，難しくてわからないところ・うまく動かないところがあれば連絡ください．</p>
+<h1 id="python%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86%E3%82%92%E3%81%99%E3%82%8Bopencv">Pythonを使って画像処理をする(OpenCV)</h1>
+<p>OpenCV(画像処理ライブラリ)を使ってプログラミングしてみましょう．<br></p>
+<p>情報学科の学生は「プログラミングⅠ」でPythonの実行環境が用意できているはず...</p>
+<h2 id="%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99">事前準備</h2>
+<p>PythonでOpenCVのライブラリが扱えるようにしましょう．</p>
+<p>以下のコマンドをターミナルで実行してみてください．
+&quot;&gt; &quot;は入力してはいけません．</p>
+<p>授業で使ってたのはコマンドプロンプトかな？？</p>
+<pre class="hljs"><code><div>&gt; pip install opencv-contrib-python
+</div></code></pre>
+<pre class="hljs"><code><div>&gt; pip install numpy
+</div></code></pre>
+<h2 id="1-opencv%E3%81%A7%E6%96%87%E5%AD%97%E3%81%AE%E6%8F%8F%E7%94%BB">1. OpenCVで文字の描画</h2>
+<p><code>cvtest01.py</code> というファイルを作成して以下のコードを記述してください．</p>
+<hr>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># 黒い画像を作成（高さ300, 幅500）</span>
+img = np.zeros((<span class="hljs-number">300</span>, <span class="hljs-number">500</span>, <span class="hljs-number">3</span>), dtype=np.uint8)
+
+<span class="hljs-comment"># 文字を描画</span>
+cv2.putText(
+    img,
+    <span class="hljs-string">"Hello OpenCV"</span>,
+    (<span class="hljs-number">50</span>, <span class="hljs-number">150</span>),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    <span class="hljs-number">1</span>,
+    (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>)
+)
+
+<span class="hljs-comment"># 表示</span>
+cv2.imshow(<span class="hljs-string">"image"</span>, img)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+</div></code></pre>
+<hr>
+<p>ターミナルで実行してみましょう．</p>
+<pre class="hljs"><code><div>&gt; python cvtest01.py
+</div></code></pre>
+<p>以下のようなウインドウが表示されます．</p>
+<p><img src="img/img02.png" alt="chtest01の結果"></p>
+<p>先のソースコードには以下のような記述がありました．</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 文字を描画</span>
+cv2.putText(
+    img,
+    <span class="hljs-string">"Hello OpenCV"</span>,
+    (<span class="hljs-number">50</span>, <span class="hljs-number">150</span>),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    <span class="hljs-number">1</span>,
+    (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>)
+)
+</div></code></pre>
+<p><code>cv2.putText()</code> は以下の形式で引数を入力することで文字描画を行うことができます．</p>
+<pre class="hljs"><code><div>cv2.putText(画像, 文字列, 位置, フォント, サイズ, 色)
+</div></code></pre>
+<ul>
+<li>画像
+<ul>
+<li>テキストを描画する画像データ</li>
+<li>ここで指定された画像上にテキストが描画される</li>
+</ul>
+</li>
+<li>文字列 : &quot;hogehoge&quot;
+<ul>
+<li>print() で文字を書くときと一緒</li>
+</ul>
+</li>
+<li>位置 : (x,y)
+<ul>
+<li>(x, y) で指定</li>
+<li>文字列の左下の座標がこの値で決定されます</li>
+</ul>
+</li>
+<li>フォント
+<ul>
+<li>OpenCVの組込みフォントが指定できます</li>
+<li>下のリンクを参照</li>
+</ul>
+</li>
+<li>サイズ
+<ul>
+<li>スケール係数というらしい...</li>
+<li>1 がデフォルト</li>
+</ul>
+</li>
+<li>色 : (B,G,R)
+<ul>
+<li>Blue, Green, Red</li>
+<li>RGBではないことに注意</li>
+<li>数値が大きければ明るく・小さければ暗くなります</li>
+</ul>
+</li>
+</ul>
+<p>参考：<a href="https://www.codevace.com/py-opencv-puttext/">【Python・OpenCV】画像にテキストを描画する方法(cv2.putText)</a></p>
+<p>各々の引数の値を変更して，表示がどのように変わるか試してみてください．</p>
+<h2 id="2-opencv%E3%81%A7web%E3%82%AB%E3%83%A1%E3%83%A9%E3%81%AE%E7%94%BB%E5%83%8F%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B">2. OpenCVでWebカメラの画像を取得する</h2>
+<p>以下のソースコードを <code>cvtest02.py</code> というファイル名で保存して実行してみましょう．</p>
+<hr>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> cv2
+<span class="hljs-comment"># cv2はOpenCV（画像処理ライブラリ）をPythonから使うためのモジュール</span>
+
+<span class="hljs-comment"># カメラを起動して映像を取得する準備</span>
+cap = cv2.VideoCapture(<span class="hljs-number">0</span>)
+
+<span class="hljs-comment"># ここからループ処理（カメラ映像をリアルタイムで表示）</span>
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-comment"># カメラ(cap)から1フレーム（1枚の画像）を取得</span>
+    ret, frame = cap.read()
+
+    <span class="hljs-comment"># エラー処理</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:
+        print(<span class="hljs-string">"フレーム取得失敗"</span>)
+        <span class="hljs-keyword">break</span>
+
+    <span class="hljs-comment"># 取得した画像をウインドウに表示</span>
+    cv2.imshow(<span class="hljs-string">"camera"</span>, frame)
+
+    <span class="hljs-comment"># ESCキーを押したらループ(while)を抜ける(break)</span>
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) == <span class="hljs-number">27</span>: <span class="hljs-comment">#ESCキーは「27」という値として取得される(ASCIIコード)</span>
+        <span class="hljs-keyword">break</span>
+
+<span class="hljs-comment"># カメラを解放する（使い終わったので閉じる）</span>
+cap.release()
+<span class="hljs-comment"># ウインドウを閉じる</span>
+cv2.destroyAllWindows()
+</div></code></pre>
+<hr>
+<p>ターミナルで以下のように入力すれば実行できます．</p>
+<pre class="hljs"><code><div>&gt; python cvtest02.py
+</div></code></pre>
+<p>うまくいけばいかのようにWebカメラの画像がリアルタイムで表示されます．</p>
+<p><img src="img/img01.png" alt="ウインドウ画面"></p>
+<p><strong>Escキー</strong> でウインドウを閉じることができます．</p>
+<p>OpenCVを利用することで，このようにカメラ画像の取得が簡単にできます．</p>
+<hr>
+<h2 id="%E8%AA%B2%E9%A1%8C">課題</h2>
+<p>OpenCVで取得したカメラ画像の上に文字を描画して表示させてください．</p>
+<p><img src="img/img03.png" alt="work01の結果"></p>
+<p><code>cvtest02.py</code> に処理を追加することで実装できます．</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> cv2
+
+cap = cv2.VideoCapture(<span class="hljs-number">0</span>)
+
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> cap.isOpened():
+    print(<span class="hljs-string">"カメラ開けない"</span>)
+    exit()
+
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    ret, frame = cap.read()
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:
+        print(<span class="hljs-string">"フレーム取得失敗"</span>)
+        <span class="hljs-keyword">break</span>
+
+    <span class="hljs-comment">###### ここに処理を追加する ######</span>
+
+    cv2.imshow(<span class="hljs-string">"camera"</span>, frame)
+
+
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) == <span class="hljs-number">27</span>:
+        <span class="hljs-keyword">break</span>
+
+cap.release()
+cv2.destroyAllWindows()
+</div></code></pre>
+<p><code>cvtest01.py</code> で使った <code>cv2.putText()</code> の引数にカメラで取得した画像を指定することで実装できます．(<strong>img</strong> の部分を変える)</p>
+<pre class="hljs"><code><div>cv2.putText(
+    img,
+    <span class="hljs-string">"Hello OpenCV"</span>,
+    (<span class="hljs-number">50</span>, <span class="hljs-number">150</span>),
+    cv2.FONT_HERSHEY_SIMPLEX,
+    <span class="hljs-number">1</span>,
+    (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>)
+)
+</div></code></pre>
+<p>頑張ってください．</p>
+
+</body>
+</html>
